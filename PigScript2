@@ -1,0 +1,23 @@
+Student = LOAD '/home/acadgild/Onkar/Session09/Assignment2/students.txt' USING PigStorage(',') AS (name:chararray,undertaken:chararray,dob:chararray,stream:chararray,grade:float,state:chararray,city:chararray);
+
+1)
+
+LESS_5_STUDENT = FILTER Student BY grade < 5;
+
+2)
+
+ALASKA_STUDENT = FILTER Student BY state=='alaska';
+
+3) GOVT_COL = FILTER Student BY undertaken=='goverenment' AND state=='alabama';
+
+ GRP_GOVT = GROUP GOVT_COL ALL;
+
+GOVT_COUNT = FOREACH GRP_GOVT GENERATE COUNT(GOVT_COL);
+
+4)
+
+BE_STUDENT = FILTER Student BY ((state =='oregon') AND (stream == 'BE'));
+
+BE_STUDENT_GRP = GROUP BE_STUDENT ALL;
+
+BE_STUDENT_NAME = FOREACH BE_STUDENT_GRP GENERATE BE_STUDENT.name AS student_name;
